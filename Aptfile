@@ -1,6 +1,1 @@
-enchant-2
-python3-enchant
-libenchant-2-2
-libenchant-2-dev
-hunspell
-hunspell-en-us
+https://github.com/mediapredict/heroku-buildpack-enchant.git
