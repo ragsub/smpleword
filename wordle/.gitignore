@@ -1,0 +1,14 @@
+*.pyc
+__pycache__/
+lib/
+lib64/
+share/
+bin/
+etc/
+pyvenv.cfg
+__pycache__
+lib
+lib64
+share
+bin
+etc

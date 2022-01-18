@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include "wordle/__include.html" %}
+    <title>Guess the word</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col col-lg-5 col-md-6 col-sm-8 col-xs-10">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <div class="container m-1 p-1 border-bottom">
+                                <center>WORDLE</center>
+                                {{ words.management_form }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="container m-1 p-1 border-bottom">
+                                <table class="table table-borderless w-auto">
+                                    <tr>
+                                        <td class="text-end align-middle">{{form.word.label}}</td>
+                                        <td>{{form.word}}</td>
+                                        <td><button class="btn btn-primary btn-sm">Guess</button></td>
+                                        <td>{{form.attempts_left}}</td>
+                                        <td class="align-middle">attempts left</td>
+                                    </tr>
+                                </table>
+                                {% for message in messages %}
+                                    <center><div class="alert {% if message.tags == 'success'%} alert-success {%else%} alert-danger {%endif%}">{{ message }}</div></center>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="container m-1 p-1 border-bottom">
+                                <table class="table table-bordered">
+                                    {% for word in words %}
+                                        {{word}}
+                                        <tr>
+                                            <td class="{{word.l1.value}} text-center">{{word.w.value.0 | default_if_none:""}}</td>
+                                            <td class="{{word.l2.value}} text-center">{{word.w.value.1 | default_if_none:""}}</td>
+                                            <td class="{{word.l3.value}} text-center">{{word.w.value.2 | default_if_none:""}}</td>
+                                            <td class="{{word.l4.value}} text-center">{{word.w.value.3 | default_if_none:""}}</td>
+                                            <td class="{{word.l5.value}} text-center">{{word.w.value.4 | default_if_none:""}}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="container m-1 p-1 border-bottom">
+                                {{alphabets}}
+                                {{alphabets.management_form}}
+                                <div class="row m-1 p-1">
+                                    <div class="col m-1 p-1">
+                                        <table class="table table-sm table-bordered">
+                                            <tr>
+                                                <td class="{{alphabets.0.letter.value}} text-center">a</td>
+                                                <td class="{{alphabets.1.letter.value}} text-center">b</td>
+                                                <td class="{{alphabets.2.letter.value}} text-center">c</td>
+                                                <td class="{{alphabets.3.letter.value}} text-center">d</td>
+                                                <td class="{{alphabets.4.letter.value}} text-center">e</td>
+                                                <td class="{{alphabets.5.letter.value}} text-center">f</td>
+                                                <td class="{{alphabets.6.letter.value}} text-center">g</td>
+                                                <td class="{{alphabets.7.letter.value}} text-center">h</td>
+                                                <td class="{{alphabets.8.letter.value}} text-center">i</td>
+                                                <td class="{{alphabets.9.letter.value}} text-center">j</td>
+                                                <td class="{{alphabets.10.letter.value}} text-center">k</td>
+                                                <td class="{{alphabets.11.letter.value}} text-center">l</td>
+                                                <td class="{{alphabets.12.letter.value}} text-center">m</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="{{alphabets.13.letter.value}} text-center">n</td>
+                                                <td class="{{alphabets.14.letter.value}} text-center">o</td>
+                                                <td class="{{alphabets.15.letter.value}} text-center">p</td>
+                                                <td class="{{alphabets.16.letter.value}} text-center">q</td>
+                                                <td class="{{alphabets.17.letter.value}} text-center">r</td>
+                                                <td class="{{alphabets.18.letter.value}} text-center">s</td>
+                                                <td class="{{alphabets.19.letter.value}} text-center">t</td>
+                                                <td class="{{alphabets.20.letter.value}} text-center">u</td>
+                                                <td class="{{alphabets.21.letter.value}} text-center">v</td>
+                                                <td class="{{alphabets.22.letter.value}} text-center">w</td>
+                                                <td class="{{alphabets.23.letter.value}} text-center">x</td>
+                                                <td class="{{alphabets.24.letter.value}} text-center">y</td>
+                                                <td class="{{alphabets.25.letter.value}} text-center">z</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
