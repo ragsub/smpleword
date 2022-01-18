@@ -20,7 +20,8 @@ def process_word(request):
         alphabets = AlphabetFormSet(request.POST.copy(), form_kwargs={'empty_permitted':False}, prefix='alphabet')
     
         if words.is_valid() & form.is_valid() & alphabets.is_valid():
-            entered_word = form.cleaned_data['word'].lower()
+            entered_word = form.cleaned_data['word']
+            entered_word = entered_word.lower()
             attempts_left = form.cleaned_data['attempts_left']
             attempts = MAX_ATTEMPTS - attempts_left
             form.data['word'] = ""
