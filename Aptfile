@@ -1,5 +1,6 @@
+enchant-2
+python3-enchant
 libenchant-2-2
 libenchant-2-dev
-aspell
-aspell-en
-enchant-aspell
+hunspell
+hunspell-en-us
