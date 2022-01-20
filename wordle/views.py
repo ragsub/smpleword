@@ -51,14 +51,14 @@ def process_word(request):
                             letter = 'l'+str(j+1)
                             if entered_word[j] == TARGET_WORD[j]:
                                 word.cleaned_data[letter] = 'bg-success'
-                                alphabets[ord(entered_word[j])-97].cleaned_data['letter'] = 'bg-success'
+                                alphabets[ord(entered_word[j])-97].cleaned_data['letter'] = 'btn-success'
                             elif entered_word[j] in TARGET_WORD:
                                 word.cleaned_data[letter] = 'bg-warning'
-                                if alphabets[ord(entered_word[j])-97].cleaned_data['letter'] != 'bg-success': 
-                                    alphabets[ord(entered_word[j])-97].cleaned_data['letter'] = 'bg-warning'
+                                if alphabets[ord(entered_word[j])-97].cleaned_data['letter'] != 'btn-success': 
+                                    alphabets[ord(entered_word[j])-97].cleaned_data['letter'] = 'btn-warning'
                             else:
                                 word.cleaned_data[letter] = 'bg-secondary'
-                                alphabets[ord(entered_word[j])-97].cleaned_data['letter'] = 'bg-secondary'
+                                alphabets[ord(entered_word[j])-97].cleaned_data['letter'] = 'btn-secondary'
 
                         break
                 

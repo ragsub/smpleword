@@ -8,7 +8,7 @@
     <title>Guess the word</title>
 </head>
 <body>
-    <div x-data="{}" class="container" x-init="() => $refs.guess.focus();setTimeout(function() {$refs.guess.click()},500);">
+    <div class="container"  x-data="{ guessed_word: ''}">
         <div class="row justify-content-center">
             <div class="col col-lg-5 col-md-6 col-sm-8 col-xs-10">
                 <form method="POST">
@@ -29,7 +29,7 @@
                                         <tr>
                                             <td class="text-end align-middle">{{form.word.label}}</td>
                                             <td>{{form.word}}</td>
-                                            <td><button class="btn btn-primary btn-sm">Guess</button></td>
+                                            <td><button class="btn btn-primary btn-sm" x-ref='submit_guess_button'>Guess</button></td>
                                             <td class="align-middle">{{form.attempts_left.value}}</td>
                                             <td class="text-start align-middle">attempts left</td>
                                         </tr>
@@ -69,38 +69,48 @@
                                 {{alphabets.management_form}}
                                 <div class="row">
                                     <div class="col m-1 p-1">
-                                        <table class="table table-sm table-bordered">
-                                            <tr>
-                                                <td class="{{alphabets.0.letter.value}} text-center">a</td>
-                                                <td class="{{alphabets.1.letter.value}} text-center">b</td>
-                                                <td class="{{alphabets.2.letter.value}} text-center">c</td>
-                                                <td class="{{alphabets.3.letter.value}} text-center">d</td>
-                                                <td class="{{alphabets.4.letter.value}} text-center">e</td>
-                                                <td class="{{alphabets.5.letter.value}} text-center">f</td>
-                                                <td class="{{alphabets.6.letter.value}} text-center">g</td>
-                                                <td class="{{alphabets.7.letter.value}} text-center">h</td>
-                                                <td class="{{alphabets.8.letter.value}} text-center">i</td>
-                                                <td class="{{alphabets.9.letter.value}} text-center">j</td>
-                                                <td class="{{alphabets.10.letter.value}} text-center">k</td>
-                                                <td class="{{alphabets.11.letter.value}} text-center">l</td>
-                                                <td class="{{alphabets.12.letter.value}} text-center">m</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="{{alphabets.13.letter.value}} text-center">n</td>
-                                                <td class="{{alphabets.14.letter.value}} text-center">o</td>
-                                                <td class="{{alphabets.15.letter.value}} text-center">p</td>
-                                                <td class="{{alphabets.16.letter.value}} text-center">q</td>
-                                                <td class="{{alphabets.17.letter.value}} text-center">r</td>
-                                                <td class="{{alphabets.18.letter.value}} text-center">s</td>
-                                                <td class="{{alphabets.19.letter.value}} text-center">t</td>
-                                                <td class="{{alphabets.20.letter.value}} text-center">u</td>
-                                                <td class="{{alphabets.21.letter.value}} text-center">v</td>
-                                                <td class="{{alphabets.22.letter.value}} text-center">w</td>
-                                                <td class="{{alphabets.23.letter.value}} text-center">x</td>
-                                                <td class="{{alphabets.24.letter.value}} text-center">y</td>
-                                                <td class="{{alphabets.25.letter.value}} text-center">z</td>
-                                            </tr>
-                                        </table>
+                                        <center>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('q')}" class="col btn {{alphabets.16.letter.value}} text-center">q</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('w')}" class="col btn {{alphabets.22.letter.value}} text-center">w</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('e')}" class="col btn {{alphabets.4.letter.value}} text-center">e</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('r')}" class="col btn {{alphabets.17.letter.value}} text-center">r</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('t')}" class="col btn {{alphabets.19.letter.value}} text-center">t</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('y')}" class="col btn {{alphabets.24.letter.value}} text-center">y</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('u')}" class="col btn {{alphabets.20.letter.value}} text-center">u</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('i')}" class="col btn {{alphabets.8.letter.value}} text-center">i</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('o')}" class="col btn {{alphabets.14.letter.value}} text-center">o</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('p')}" class="col btn {{alphabets.15.letter.value}} text-center">p</div>
+                                        </center>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col m-1 p-1">
+                                        <center>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('a')}" class="col btn {{alphabets.0.letter.value}} text-center">a</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('s')}" class="col btn {{alphabets.18.letter.value}} text-center">s</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('d')}" class="col btn {{alphabets.3.letter.value}} text-center">d</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('f')}" class="col btn {{alphabets.5.letter.value}} text-center">f</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('g')}" class="col btn {{alphabets.6.letter.value}} text-center">g</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('h')}" class="col btn {{alphabets.7.letter.value}} text-center">h</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('j')}" class="col btn {{alphabets.9.letter.value}} text-center">j</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('k')}" class="col btn {{alphabets.10.letter.value}} text-center">k</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('l')}" class="col btn {{alphabets.11.letter.value}} text-center">l</div>
+                                            <div x-on:click="if (guessed_word.length > 1) {guessed_word=guessed_word.substring(0,guessed_word.length-1)} else{guessed_word=''}" class="col btn btn-primary text-center"><i class="bi bi-arrow-left"></i></div>
+                                        </center>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col m-1 p-1">
+                                        <center>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('z')}" class="col btn {{alphabets.25.letter.value}} text-center">z</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('x')}" class="col btn {{alphabets.23.letter.value}} text-center">x</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('c')}" class="col btn {{alphabets.2.letter.value}} text-center">c</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('v')}" class="col btn {{alphabets.21.letter.value}} text-center">v</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('b')}" class="col btn {{alphabets.1.letter.value}} text-center">b</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('n')}" class="col btn {{alphabets.13.letter.value}} text-center">n</div>
+                                            <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('m')}" class="col btn {{alphabets.12.letter.value}} text-center">m</div>
+                                            <div x-on:click="if (guessed_word.length = 5) {$refs.submit_guess_button.click()}" class="col btn btn-primary text-center"><i class="bi bi-arrow-return-left"></i></div>
+                                        </center>
                                     </div>
                                 </div>
                             </div>

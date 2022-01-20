@@ -17,6 +17,7 @@ class WordleForm(forms.Form):
                 'title':'Only alphabets',
                 'class':'form-control-sm',
                 'x-ref':'guess',
+                'x-model':'guessed_word',
                 'autocomplete':'off'
             })
         )
@@ -49,4 +50,4 @@ class WordForm(forms.Form):
     l5 = forms.CharField(required = False, initial='bg-light text-secondary',widget = forms.HiddenInput())
 
 class AlphabetForm(forms.Form):
-    letter = forms.CharField(required = False, initial='bg-light text-secondary', widget = forms.HiddenInput())
+    letter = forms.CharField(required = False, initial='btn-light text-secondary', widget = forms.HiddenInput())
