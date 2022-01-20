@@ -23,7 +23,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <div x-data = "{focus:1}"class="container m-1 p-1 border-bottom" x-init="$refs.guess.click()">
+                            <div x-data = "{focus:1}"class="container m-1 p-1 border-bottom" x-init="() => $refs.guess.focus();$refs.guess.click();console.log('done')">
                                 <center>
                                     <table class="table table-sm table-borderless w-auto">
                                         <tr>
