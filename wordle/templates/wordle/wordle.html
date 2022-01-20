@@ -23,19 +23,22 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <div class="container m-1 p-1 border-bottom">
-                                <table class="table table-borderless w-auto">
+                            <div class="container m-1 p-1 border-bottom" x-init="$refs.guess.focus()">
+                                <center>
+                                <table class="table table-sm table-borderless w-auto">
                                     <tr>
                                         <td class="text-end align-middle">{{form.word.label}}</td>
                                         <td>{{form.word}}</td>
                                         <td><button class="btn btn-primary btn-sm">Guess</button></td>
-                                        <td>{{form.attempts_left}}</td>
-                                        <td class="align-middle">attempts left</td>
+                                        <td class="align-middle">{{form.attempts_left.value}}</td>
+                                        <td class="text-start align-middle">attempts left</td>
                                     </tr>
                                 </table>
+                                </center>
                                 {{form.target_word}}
+                                {{form.attempts_left}}
                                 {% for message in messages %}
-                                    <center><div class="alert {% if message.tags == 'safe success'%} alert-success {%else%} alert-danger {%endif%}">{{ message |safe }}</div></center>
+                                    <center><div class="alert p-1 m-1 {% if message.tags == 'safe success'%} alert-success {%else%} alert-danger {%endif%}">{{ message |safe }}</div></center>
                                 {% endfor %}
 
                             </div>
@@ -44,7 +47,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="container m-1 p-1 border-bottom">
-                                <table class="table table-bordered">
+                                <table class="table table-sm table-bordered">
                                     {% for word in words %}
                                         {{word}}
                                         <tr>
@@ -64,7 +67,7 @@
                             <div class="container m-1 p-1 border-bottom">
                                 {{alphabets}}
                                 {{alphabets.management_form}}
-                                <div class="row m-1 p-1">
+                                <div class="row">
                                     <div class="col m-1 p-1">
                                         <table class="table table-sm table-bordered">
                                             <tr>

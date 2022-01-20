@@ -7,7 +7,7 @@ class WordleForm(forms.Form):
     word = forms.CharField(
         max_length=5, 
         min_length=5,
-        label='Enter word',
+        label='Word :',
         validators=[alpha],
         widget = forms.TextInput (
             attrs = ({
@@ -15,7 +15,8 @@ class WordleForm(forms.Form):
                 'size':5,
                 'pattern':'[A-Za-z]+',
                 'title':'Only alphabets',
-                'class':'form-control-sm'
+                'class':'form-control-sm',
+                'x-ref':'guess'
             })
         )
     )
@@ -24,14 +25,14 @@ class WordleForm(forms.Form):
         max_value=6,
         initial=6,
         required = False,
-        widget = forms.NumberInput(
-            attrs = ({
-                'readonly':'readonly',
-                'style':'width:6ch',
-                'class':'bg-light form-control-sm'
-            })
-        )
-    )
+        widget = forms.HiddenInput())
+ #           attrs = ({
+ #               'readonly':'readonly',
+ #               'style':'width:6ch',
+ #               'class':'bg-light form-control-sm'
+ #           })
+ #       )
+ #   )
 
     target_word = forms.CharField(
         required=False,
