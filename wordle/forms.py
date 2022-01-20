@@ -16,7 +16,8 @@ class WordleForm(forms.Form):
                 'pattern':'[A-Za-z]+',
                 'title':'Only alphabets',
                 'class':'form-control-sm',
-                'x-ref':'guess'
+                'x-ref':'guess',
+                'autocomplete':'off'
             })
         )
     )
