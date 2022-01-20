@@ -23,17 +23,17 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <div class="container m-1 p-1 border-bottom" x-init="()=> $refs.guess.focus()">
+                            <div x-data = "{focus:1}"class="container m-1 p-1 border-bottom" x-init="$refs.guess.click()">
                                 <center>
-                                <table class="table table-sm table-borderless w-auto">
-                                    <tr>
-                                        <td class="text-end align-middle">{{form.word.label}}</td>
-                                        <td>{{form.word}}</td>
-                                        <td><button class="btn btn-primary btn-sm">Guess</button></td>
-                                        <td class="align-middle">{{form.attempts_left.value}}</td>
-                                        <td class="text-start align-middle">attempts left</td>
-                                    </tr>
-                                </table>
+                                    <table class="table table-sm table-borderless w-auto">
+                                        <tr>
+                                            <td class="text-end align-middle">{{form.word.label}}</td>
+                                            <td>{{form.word}}</td>
+                                            <td><button class="btn btn-primary btn-sm">Guess</button></td>
+                                            <td class="align-middle">{{form.attempts_left.value}}</td>
+                                            <td class="text-start align-middle">attempts left</td>
+                                        </tr>
+                                    </table>
                                 </center>
                                 {{form.target_word}}
                                 {{form.attempts_left}}
