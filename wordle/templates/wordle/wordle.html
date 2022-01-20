@@ -33,8 +33,9 @@
                                         <td class="align-middle">attempts left</td>
                                     </tr>
                                 </table>
+                                {{form.target_word}}
                                 {% for message in messages %}
-                                    <center><div class="alert {% if message.tags == 'success'%} alert-success {%else%} alert-danger {%endif%}">{{ message }}</div></center>
+                                    <center><div class="alert {% if message.tags == 'safe success'%} alert-success {%else%} alert-danger {%endif%}">{{ message |safe }}</div></center>
                                 {% endfor %}
 
                             </div>

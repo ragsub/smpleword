@@ -1,4 +1,4 @@
 django
-pyenchant
 gunicorn
 whitenoise
+cryptography

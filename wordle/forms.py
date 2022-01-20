@@ -33,6 +33,11 @@ class WordleForm(forms.Form):
         )
     )
 
+    target_word = forms.CharField(
+        required=False,
+        widget = forms.HiddenInput()
+    )
+    
 class WordForm(forms.Form):
     w = forms.CharField (required=False, initial='xxxxx', widget = forms.HiddenInput())
     l1 = forms.CharField(required = False, initial='bg-light text-secondary', widget = forms.HiddenInput())
