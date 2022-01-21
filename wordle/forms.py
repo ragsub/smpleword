@@ -18,7 +18,8 @@ class WordleForm(forms.Form):
                 'class':'form-control-sm',
                 'x-ref':'guess',
                 'x-model':'guessed_word',
-                'autocomplete':'off'
+                'autocomplete':'off',
+                'hidden':'hidden'
             })
         )
     )
@@ -28,13 +29,7 @@ class WordleForm(forms.Form):
         initial=6,
         required = False,
         widget = forms.HiddenInput())
- #           attrs = ({
- #               'readonly':'readonly',
- #               'style':'width:6ch',
- #               'class':'bg-light form-control-sm'
- #           })
- #       )
- #   )
+
 
     target_word = forms.CharField(
         required=False,

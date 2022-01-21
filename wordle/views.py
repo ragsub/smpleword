@@ -10,6 +10,12 @@ import random
 
 ENCODING_FORMAT = 'utf8'
 
+def help_menu(request):
+    return render(
+        request=request, 
+        template_name="wordle/help.html", 
+    ) 
+
 def process_word(request):
 
     MAX_ATTEMPTS = 6
@@ -37,45 +43,53 @@ def process_word(request):
             attempts_left = form.cleaned_data['attempts_left']
             attempts = MAX_ATTEMPTS - attempts_left
             form.data['word'] = ""
-            
-            if entered_word in en_list:
-                attempts = attempts + 1
-                form.data['attempts_left'] = attempts_left-1
-                i = 0
-                for word in words:
-                    i = i+1
-                    if i==attempts:
-                        word.cleaned_data['w']= entered_word
-                    
-                        for j in range (0,5):
-                            letter = 'l'+str(j+1)
-                            if entered_word[j] == TARGET_WORD[j]:
-                                word.cleaned_data[letter] = 'bg-success'
-                                alphabets[ord(entered_word[j])-97].cleaned_data['letter'] = 'btn-success'
-                            elif entered_word[j] in TARGET_WORD:
-                                word.cleaned_data[letter] = 'bg-warning'
-                                if alphabets[ord(entered_word[j])-97].cleaned_data['letter'] != 'btn-success': 
-                                    alphabets[ord(entered_word[j])-97].cleaned_data['letter'] = 'btn-warning'
-                            else:
-                                word.cleaned_data[letter] = 'bg-secondary'
-                                alphabets[ord(entered_word[j])-97].cleaned_data['letter'] = 'btn-secondary'
 
-                        break
-                
-                new_words = WordFormSet(initial = words.cleaned_data, prefix='word')
-                new_alphabets = AlphabetFormSet(initial = alphabets.cleaned_data, prefix="alphabet")
-                context['words'] = new_words
-                context['form'] = form
-                context['alphabets'] = new_alphabets
-                
-                if entered_word == TARGET_WORD:
-                    messages.add_message(request=request, level=messages.SUCCESS, message='You solved it in '+ str(attempts) + ' attempts! Challenge your friend by clicking '+'<a href='+request.path+'?target_word='+form.cleaned_data['target_word']+'>here</a>', extra_tags='safe')
-                    form.fields['word'].widget.attrs.update({'readonly':'readonly'})
-                elif attempts_left == 1:
-                    form.fields['word'].widget.attrs.update({'readonly':'readonly'})
-                    messages.add_message(request=request, level=messages.ERROR, message = 'Chances over. word is '+TARGET_WORD)
+            if attempts_left > 0:
+            
+                if entered_word in en_list:
+                    attempts = attempts + 1
+                    form.data['attempts_left'] = attempts_left-1
+                    i = 0
+                    for word in words:
+                        i = i+1
+                        if i==attempts:
+                            word.cleaned_data['w']= entered_word
+                        
+                            for j in range (0,5):
+                                letter = 'l'+str(j+1)
+                                if entered_word[j] == TARGET_WORD[j]:
+                                    word.cleaned_data[letter] = 'bg-success'
+                                    alphabets[ord(entered_word[j])-97].cleaned_data['letter'] = 'btn-success'
+                                elif entered_word[j] in TARGET_WORD:
+                                    word.cleaned_data[letter] = 'bg-warning'
+                                    if alphabets[ord(entered_word[j])-97].cleaned_data['letter'] != 'btn-success': 
+                                        alphabets[ord(entered_word[j])-97].cleaned_data['letter'] = 'btn-warning'
+                                else:
+                                    word.cleaned_data[letter] = 'bg-secondary'
+                                    alphabets[ord(entered_word[j])-97].cleaned_data['letter'] = 'btn-secondary'
+
+                            break
+                    
+                    new_words = WordFormSet(initial = words.cleaned_data, prefix='word')
+                    new_alphabets = AlphabetFormSet(initial = alphabets.cleaned_data, prefix="alphabet")
+                    context['words'] = new_words
+                    context['form'] = form
+                    context['alphabets'] = new_alphabets
+                    
+                    if entered_word == TARGET_WORD:
+                        messages.add_message(request=request, level=messages.SUCCESS, message='You solved it in '+ str(attempts) + ' attempts! Challenge your friend by clicking '+'<a href='+request.path+'?target_word='+form.cleaned_data['target_word']+'>here</a>', extra_tags='safe')
+                        form.fields['word'].widget.attrs.update({'readonly':'readonly'})
+
+                    if attempts_left == 1:
+                        messages.add_message(request=request, level=messages.ERROR, message = 'Chances over. word is '+TARGET_WORD)
+
+                else:
+                    messages.add_message(request=request, level=messages.ERROR, message=entered_word+' is not a valid english word')
+                    context['words'] = words
+                    context['form'] = form
+                    context['alphabets'] = alphabets
             else:
-                messages.add_message(request=request, level=messages.ERROR, message=entered_word+' is not a valid english word')
+                messages.add_message(request=request, level=messages.ERROR, message = 'Chances over. word is '+TARGET_WORD)
                 context['words'] = words
                 context['form'] = form
                 context['alphabets'] = alphabets

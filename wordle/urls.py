@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from wordle.views import process_word
+from wordle.views import process_word, help_menu
 
 urlpatterns = [
     #path('admin/', admin.site.urls),    
     path('', process_word, name='process_word'),
+    path('help/', help_menu, name='help'),
+
 ]
