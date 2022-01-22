@@ -120,6 +120,6 @@ def process_word(request):
     
     return render(
         request=request, 
-        template_name="wordle/wordle.html", 
+        template_name="wordle/wordle1.html", 
         context = context
     ) 

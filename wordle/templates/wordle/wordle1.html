@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include "wordle/__include.html" %}
+    <title>Guess the word</title>
+</head>
+<body>
+
+<div class="container col-sm-8 col-md-6 col-lg-4" x-data="{ guessed_word: '', show_error: false, my_modal:''}">
+    <div class="row m-1 p-1 border-bottom justify-content-end">
+        <div class="col-4">
+            <span class="h1">WORDLE</span>
+        </div>
+        <div class="col-4 text-end">
+            <a class="btn btn-link" hx-get={% url "help" %} hx-target="#modal_placeholder" hx-trigger="click" @htmx:after-settle.camel.document="my_modal=new bootstrap.Modal($refs.modaldiv);my_modal.show()"> <i class="bi bi-question-circle"></i></a>
+        </div>
+    </div>
+    <div class="row m-1 p-1 justify-content-center">
+        <div class="col-2"><input class="form-control bg-white text-center" readonly type="text", size="1" x-bind:value="guessed_word.substring(0,1)"></div>
+        <div class="col-2"><input class="form-control bg-white text-center" readonly type="text", size="1" x-bind:value="guessed_word.substring(1,2)"></div>
+        <div class="col-2"><input class="form-control bg-white text-center" readonly type="text", size="1" x-bind:value="guessed_word.substring(2,3)"></div>
+        <div class="col-2"><input class="form-control bg-white text-center" readonly type="text", size="1" x-bind:value="guessed_word.substring(3,4)"></div>
+        <div class="col-2"><input class="form-control bg-white text-center" readonly type="text", size="1" x-bind:value="guessed_word.substring(4,5)"></div>
+    </div>
+    <div class="row m-1 p-1 justify-content-center">
+        <div class="col-12">
+            <button class="btn btn-primary btn-sm" x-ref='submit_guess_button' hidden>Guess</button>
+            {{ words.management_form }}
+            {{form.word}}
+            {{form.target_word}}
+            {{form.attempts_left}}
+
+            {% for message in messages %}
+                <center><div x-data="{ show: true }" x-show="show" x-transition class="alert p-1 m-1 {% if message.tags == 'safe success'%} alert-success {%else%} alert-danger {%endif%}" {% if message.tags != 'safe success'%}x-init="setTimeout(() => show = false, 2000){%endif%}">{{ message |safe }}</div></center>
+            {% endfor %}
+            <div x-data="{show_error:false}" x-cloak x-show="show_error" class="alert alert-danger">Word should be 5 letters</div>
+        </div>
+    </div>
+    <div class="row p-0 m-0 justify-content-center">
+        <div class="col-10 p-0 m-0 border-bottom">
+            <p class="text-center text-muted p-0 m-0">{{form.attempts_left.value}} attempts left</p>
+        </div>
+    </div>
+    {% for word in words %}
+    {{word}}
+    <div class="row p-1 m-1 justify-content-center">
+        <div class="col-2"><input class="form-control text-center {{word.l1.value}}" disabled type="text" size="1" value="{{word.w.value.0 | default_if_none:''}}"></div>
+        <div class="col-2"><input class="form-control text-center {{word.l2.value}}" disabled type="text" size="1" value="{{word.w.value.1 | default_if_none:''}}"></div>
+        <div class="col-2"><input class="form-control text-center {{word.l3.value}}" disabled type="text" size="1" value="{{word.w.value.2 | default_if_none:''}}"></div>
+        <div class="col-2"><input class="form-control text-center {{word.l4.value}}" disabled type="text" size="1" value="{{word.w.value.3 | default_if_none:''}}"></div>
+        <div class="col-2"><input class="form-control text-center {{word.l5.value}}" disabled type="text" size="1" value="{{word.w.value.4 | default_if_none:''}}"></div>
+    </div>
+    {% endfor %}
+    <div class="row justify-content-center">
+        <div class="col-10 border-bottom"></div>
+    </div>
+    <div class="row m-1 p-1 justify-content-between">
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('q')}" @keyup.q.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('q')}" class="col-1 border btn {{alphabets.16.letter.value}}">q</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('w')}" @keyup.w.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('w')}" class="col-1 border btn {{alphabets.22.letter.value}}">w</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('e')}" @keyup.e.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('e')}" class="col-1 border btn {{alphabets.4.letter.value}}" >e</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('r')}" @keyup.r.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('r')}" class="col-1 border btn {{alphabets.17.letter.value}}">r</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('t')}" @keyup.t.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('t')}" class="col-1 border btn {{alphabets.19.letter.value}}">t</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('y')}" @keyup.y.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('y')}" class="col-1 border btn {{alphabets.24.letter.value}}">y</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('u')}" @keyup.u.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('u')}" class="col-1 border btn {{alphabets.20.letter.value}}">u</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('i')}" @keyup.i.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('i')}" class="col-1 border btn {{alphabets.8.letter.value}} ">i</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('o')}" @keyup.o.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('o')}" class="col-1 border btn {{alphabets.14.letter.value}}">o</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('p')}" @keyup.p.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('p')}" class="col-1 border btn {{alphabets.15.letter.value}}">p</div>
+    </div>
+    <div class="row m-1 p-1 justify-content-evenly">
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('a')}" @keyup.a.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('a')}" class="col-1 border btn {{alphabets.0.letter.value}}" >a</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('s')}" @keyup.s.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('s')}" class="col-1 border btn {{alphabets.18.letter.value}}">s</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('d')}" @keyup.d.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('d')}" class="col-1 border btn {{alphabets.3.letter.value}}" >d</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('f')}" @keyup.f.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('f')}" class="col-1 border btn {{alphabets.5.letter.value}}" >f</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('g')}" @keyup.g.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('g')}" class="col-1 border btn {{alphabets.6.letter.value}}" >g</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('h')}" @keyup.h.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('h')}" class="col-1 border btn {{alphabets.7.letter.value}}" >h</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('j')}" @keyup.j.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('j')}" class="col-1 border btn {{alphabets.9.letter.value}}" >j</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('k')}" @keyup.k.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('k')}" class="col-1 border btn {{alphabets.10.letter.value}}">k</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('l')}" @keyup.l.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('l')}" class="col-1 border btn {{alphabets.11.letter.value}}">l</div>
+        <div x-on:click="if (guessed_word.length > 1) {guessed_word=guessed_word.substring(0,guessed_word.length-1)} else{guessed_word=''}" @keyup.backspace.window="if (guessed_word.length > 1) {guessed_word=guessed_word.substring(0,guessed_word.length-1)} else{guessed_word=''}" class="col-1 border btn btn-primary text-center"><i class="bi bi-arrow-left"></i></div>
+    </div>
+    <div class="row m-1 p-1 justify-content-evenly">
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('z')}" @keyup.z.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('z')}" class="col-1 border btn {{alphabets.25.letter.value}}">z</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('x')}" @keyup.x.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('x')}" class="col-1 border btn {{alphabets.23.letter.value}}">x</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('c')}" @keyup.c.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('c')}" class="col-1 border btn {{alphabets.2.letter.value}}">c</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('v')}" @keyup.v.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('v')}" class="col-1 border btn {{alphabets.21.letter.value}}">v</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('b')}" @keyup.b.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('b')}" class="col-1 border btn {{alphabets.1.letter.value}}">b</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('n')}" @keyup.n.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('n')}" class="col-1 border btn {{alphabets.13.letter.value}}">n</div>
+        <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('m')}" @keyup.m.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('m')}" class="col-1 border btn {{alphabets.12.letter.value}}">m</div>
+        <div x-on:click="if ((guessed_word.length == 5) && ({{form.attempts_left.value}}>0)) {$refs.submit_guess_button.click()} else {show_error=true;setTimeout(function(){show_error=false;},1000);}" @keyup.enter.window="if ((guessed_word.length == 5) && ({{form.attempts_left.value}}>0)) {$refs.submit_guess_button.click()} else {show_error=true;setTimeout(function(){show_error=false;},1000);}" class="col-1 border btn btn-primary text-center"><i class="bi bi-arrow-return-left"></i></div>
+    </div>
+</div>
+    
+</body>
+</html>

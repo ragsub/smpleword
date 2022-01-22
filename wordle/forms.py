@@ -37,7 +37,7 @@ class WordleForm(forms.Form):
     )
     
 class WordForm(forms.Form):
-    w = forms.CharField (required=False, initial='xxxxx', widget = forms.HiddenInput())
+    w = forms.CharField (required=False, initial='', widget = forms.HiddenInput())
     l1 = forms.CharField(required = False, initial='bg-light text-secondary', widget = forms.HiddenInput())
     l2 = forms.CharField(required = False, initial='bg-light text-secondary', widget = forms.HiddenInput())
     l3 = forms.CharField(required = False, initial='bg-light text-secondary',widget = forms.HiddenInput())
