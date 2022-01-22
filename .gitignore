@@ -13,3 +13,4 @@ share
 bin
 etc
 db.sqlite3
+wordle/templates/wordle/wordle_backup.html

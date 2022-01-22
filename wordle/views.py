@@ -112,7 +112,16 @@ def process_word(request):
             encrypted_word = request.GET.get('target_word')
             form.fields['target_word'].initial = encrypted_word
             request.GET['target_word'] = None
-
+        
+        i = 0
+        for word in words:
+            word_ref = 'guess-'+str(i)
+            word.fields['w'].widget.attrs.update(
+                {
+                    'x-ref':word_ref
+                }
+            )
+        words[0].fields['w'].widget.attrs.update({'x-bind:value':'guessed_word'})
 
         context['words'] = words
         context['form'] = form
@@ -120,6 +129,6 @@ def process_word(request):
     
     return render(
         request=request, 
-        template_name="wordle/wordle1.html", 
+        template_name="wordle/wordle.html", 
         context = context
     ) 
