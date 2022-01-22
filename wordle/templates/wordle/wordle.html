@@ -9,10 +9,10 @@
 </head>
 <body>
 
-<div class="container col-sm-12 col-md-9 col-lg-6 vh-100 d-flex" x-data="{ guessed_word: '', show_error: false, my_modal:''}">
+<div class="container col-sm-12 col-md-9 col-lg-6 align-items-center" x-data="{ guessed_word: '', show_error: false, my_modal:''}">
     <form method="POST">
     {% csrf_token %}
-    <div class="row my-1 py-1 flex-grow-1 border-bottom justify-content-end">
+    <div class="row my-1 py-1 border-bottom justify-content-end">
         <div class="col-4">
             <span class="h1">WORDLE</span>
         </div>
