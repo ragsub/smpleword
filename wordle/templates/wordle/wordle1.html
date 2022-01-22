@@ -58,6 +58,8 @@
         <div class="col-10 border-bottom"></div>
     </div>
     <div class="row m-1 p-1 justify-content-between">
+        {{alphabets}}
+        {{alphabets.management_form}}
         <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('q')}" @keyup.q.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('q')}" class="col-1 border btn {{alphabets.16.letter.value}}">q</div>
         <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('w')}" @keyup.w.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('w')}" class="col-1 border btn {{alphabets.22.letter.value}}">w</div>
         <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('e')}" @keyup.e.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('e')}" class="col-1 border btn {{alphabets.4.letter.value}}" >e</div>
