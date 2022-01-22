@@ -59,7 +59,7 @@
     <div class="row justify-content-center">
         <div class="col-12 border-bottom"></div>
     </div>
-    <div class="row py-1 my-1 justify-content-between">
+    <div class="row py-1 my-1 mx-auto no-gutters justify-content-between">
         {{alphabets}}
         {{alphabets.management_form}}
         <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('q')}" @keyup.q.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('q')}" class="col-1 border btn btn-lg {{alphabets.16.letter.value}}">q</div>
@@ -73,7 +73,7 @@
         <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('o')}" @keyup.o.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('o')}" class="col-1 border btn btn-lg {{alphabets.14.letter.value}}">o</div>
         <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('p')}" @keyup.p.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('p')}" class="col-1 border btn btn-lg {{alphabets.15.letter.value}}">p</div>
     </div>
-    <div class="row my-1 py-1 justify-content-evenly">
+    <div class="row my-1 py-1 mx-auto justify-content-evenly">
         <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('a')}" @keyup.a.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('a')}" class="col-1 border btn btn-lg {{alphabets.0.letter.value}}" >a</div>
         <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('s')}" @keyup.s.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('s')}" class="col-1 border btn btn-lg {{alphabets.18.letter.value}}">s</div>
         <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('d')}" @keyup.d.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('d')}" class="col-1 border btn btn-lg {{alphabets.3.letter.value}}" >d</div>
@@ -84,7 +84,7 @@
         <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('k')}" @keyup.k.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('k')}" class="col-1 border btn btn-lg {{alphabets.10.letter.value}}">k</div>
         <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('l')}" @keyup.l.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('l')}" class="col-1 border btn btn-lg {{alphabets.11.letter.value}}">l</div>
     </div>
-    <div class="row my-1 py-1 justify-content-between">
+    <div class="row my-1 py-1 mx-auto justify-content-between">
         <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('z')}" @keyup.z.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('z')}" class="col-1 border btn btn-lg {{alphabets.25.letter.value}}">z</div>
         <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('x')}" @keyup.x.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('x')}" class="col-1 border btn btn-lg {{alphabets.23.letter.value}}">x</div>
         <div x-on:click="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('c')}" @keyup.c.window="if (guessed_word.length < 5) {guessed_word = guessed_word.concat('c')}" class="col-1 border btn btn-lg {{alphabets.2.letter.value}}">c</div>
